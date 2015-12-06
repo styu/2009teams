@@ -13,7 +13,7 @@ $orange: #FF9800;
 $purple: #D500F9;
 $silver: #9E9E9E;
 $team-colors-list: $red $green $blue $yellow $pink $orange $purple $silver;
-$team-opacity-list: 0.4 0.4 0.4 0.5 0.4 0.4 0.5 0.4;
+$team-opacity-list: 0.8 0.8 0.8 0.8 0.8 0.8 0.8 0.8;
 $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silver";
 
 .content {
@@ -25,6 +25,7 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
 
   .teams {
     .team {
+      display: block;
       height: 270px;
       position: relative;
       width: 100%;
@@ -47,41 +48,37 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
         .links {
           display: inline-block;
           margin: 0 10px;
+          line-height: 270px;
           position: relative;
+          vertical-align: middle;
 
           .link {
-            border: 1px solid white;
-            border-radius: 13px;
+            border: 2px solid white;
+            border-radius: 14px;
             box-shadow: 1px 1px 2px fade-out(black, 0.6);
             cursor: pointer;
             display: inline-block;
             height: 26px;
+            line-height: 26px;
             opacity: 0.4;
             text-align: center;
             transition: background, opacity 200ms ease;
             width: 26px;
 
-            a {
-              cursor: pointer;
-              height: 100%;
-              line-height: 26px;
-              text-align: center;
-              width: 100%;
 
-              img {
-                cursor: pointer;
-                display: inline-block;
-                margin-top: -1px;
-                vertical-align: middle;
-              }
+            img {
+              cursor: pointer;
+              display: inline-block;
+              margin-top: -1px;
+              vertical-align: middle;
             }
 
-            &.pdf a img {
+            &.pdf img {
               height: 15px;
               width: auto;
             }
 
-            &.website a img {
+            &.website img {
               height: auto;
               width: 20px;
             }
@@ -115,12 +112,12 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
         $i: index($team-color-names, $current-color);
         &:hover, &.active {
           .overlay {
-            background-color: fade-out(nth($team-colors-list, $i), nth($team-opacity-list, $i));
+            background-color: fade-out(nth($team-colors-list, $i), 0.7);
           }
         }
 
         .overlay {
-          background-color: fade-out(nth($team-colors-list, $i), nth($team-opacity-list, $i) + 0.2);
+          background-color: fade-out(nth($team-colors-list, $i), 0.1);
           .links .link:hover {
             background-color: darken(nth($team-colors-list, $i), 20%);
           }
@@ -128,6 +125,10 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
       }
     }
   }
+}
+
+.mobile-footer {
+  display: none;
 }
 
 .side-bar {
@@ -139,6 +140,42 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
   right: 0;
   text-align: center;
   width: 280px;
+
+  .footer {
+    bottom: 10px;
+    color: white;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+    line-height: 25px;
+    padding-left: 20px;
+    position: absolute;
+    text-align: left;
+    width: 230px;
+
+    .hashtag {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .instagram {
+      background: url("img/twitter-and-instagram.svg");
+      background-position: -41px -45px;
+      background-repeat: no-repeat;
+      background-size: 280% 280%;
+      display: inline-block;
+      height: 30px;
+      width: 25px;
+    }
+    .twitter {
+      background: url("img/twitter-and-instagram.svg");
+      background-position: -6px -45px;
+      background-repeat: no-repeat;
+      background-size: 280% 280%;
+      display: inline-block;
+      height: 30px;
+      margin-left: 4px;
+      width: 25px;
+    }
+  }
 
   .title {
     display: inline-block;
@@ -152,7 +189,7 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
       font-family: 'Montserrat', sans-serif;
       font-size: 4.8em;
       font-weight: 300;
-      margin-bottom: 25px;
+      margin-bottom: 18px;
     }
 
 
@@ -167,8 +204,10 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
 
     .teams {
       $radius: 14px;
-      $hoverRadius: 18px;
-      $margin: 6px;
+      $hoverRadius: 25px;
+      $margin: 2px;
+
+      height: $hoverRadius;
 
       > div {
         border-radius: $radius;
@@ -181,9 +220,9 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
         width: $radius;
 
         &:hover, &.active {
-          border-radius: 18px;
-          width: 18px;
-          height: 18px;
+          border-radius: $hoverRadius;
+          width: $hoverRadius;
+          height: $hoverRadius;
           margin-left: -($hoverRadius - $radius) / 2;
           margin-top: 0px;
         }
@@ -226,7 +265,8 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
+  $footerHeight: 60px;
   $navigationHeight: 100px;
 
   .side-bar {
@@ -235,6 +275,10 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
     position: absolute;
     top: 0;
     width: 100%;
+
+    .footer {
+      display: none;
+    }
 
     .top-title {
       display: inline-block;
@@ -295,8 +339,8 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
       display: inline-block;
       float: left;
       padding-left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
+      top: 60%;
+      transform: translateY(-60%);
 
       h1 {
         font-size: 2em;
@@ -328,6 +372,7 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
         .overlay {
           .links {
             margin-right: 5px;
+            line-height: 160px;
           }
 
           .name {
@@ -344,129 +389,47 @@ $team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silve
       }
     }
   }
-}
 
-@media only screen and (max-device-width: 768px) {
-  $navigationHeight: 100px;
+  .mobile-footer {
+    background: black;
+    display: block;
+    height: $footerHeight;
+    color: white;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+    line-height: $footerHeight;
+    padding-left: 10px;
+    text-align: left;
 
-  .side-bar {
-    height: $navigationHeight;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-
-    .top-title {
+    .hashtag {
       display: inline-block;
-      float: right;
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
-
-      h2 {
-        font-size: 1em;
-        margin-right: 10px;
-        margin-bottom: 5px;
-        text-align: right;
-
-        img {
-          height: 15px;
-        }
-      }
-
-      .teams {
-        display: block;
-        $radius: 10px;
-        $hoverRadius: 14px;
-        $margin: 6px;
-
-        height: $hoverRadius;
-
-        > div {
-          border-radius: $radius;
-          cursor: pointer;
-          display: inline-block;
-          height: $radius;
-          margin-top: ($hoverRadius - $radius);
-          position: absolute;
-          transition: all 100ms ease;
-          width: $radius;
-
-          &:hover, &.active {
-            border-radius: 18px;
-            width: 18px;
-            height: 18px;
-            margin-right: -($hoverRadius - $radius);
-            margin-top: 0px;
-          }
-        }
-
-        @each $current-color in $team-colors-list {
-          $i: index($team-colors-list, $current-color);
-          .#{nth($team-color-names, $i)} {
-            background: $current-color;
-            right: (length($team-colors-list) - $i) * ($hoverRadius + $margin) + 10px;
-          }
-        }
-      }
+      vertical-align: top;
     }
 
-    .title {
+    .instagram {
+      background: url("img/twitter-and-instagram.svg");
+      background-position: -41px -45px;
+      background-repeat: no-repeat;
+      background-size: 280% 280%;
       display: inline-block;
-      float: left;
-      padding-left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-
-      h1 {
-        font-size: 2em;
-        margin-bottom: 0;
-      }
-
-      h3 {
-        font-size: 1em;
-        font-weight: 400;
-      }
-
-      .teams {
-        display: none;
-      }
+      height: 30px;
+      vertical-align: middle;
+      width: 25px;
     }
-  }
-
-  .content {
-    height: calc(100% - #{$navigationHeight});
-    position: absolute;
-    top: $navigationHeight;
-    width: 100%;
-    -webkit-overflow-scrolling: touch;
-
-    .teams {
-      .team {
-        height: 160px;
-
-        .overlay {
-          .links {
-            margin-right: 5px;
-          }
-
-          .name {
-            font-size: 1.5em;
-            line-height: 160px;
-          }
-        }
-      }
-
-      @each $current-color in $team-color-names {
-        .#{$current-color} {
-          background-image: url('img/#{$current-color}team-mobile.png');
-        }
-      }
+    .twitter {
+      background: url("img/twitter-and-instagram.svg");
+      background-position: -6px -45px;
+      background-repeat: no-repeat;
+      background-size: 280% 280%;
+      display: inline-block;
+      height: 30px;
+      margin-left: 4px;
+      vertical-align: middle;
+      width: 25px;
     }
   }
 }
 
-@media only screen and (max-device-width: 568px){
+@media only screen and (max-device-width: 320px){
   .side-bar {
     .title {
       top: inherit;
