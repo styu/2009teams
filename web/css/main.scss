@@ -1,0 +1,476 @@
+html, body {
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+$red: #FF1744;
+$green: #4CAF50;
+$blue: #03A9F4;
+$yellow: #FFEB3B;
+$pink: #FF4081;
+$orange: #FF9800;
+$purple: #D500F9;
+$silver: #9E9E9E;
+$team-colors-list: $red $green $blue $yellow $pink $orange $purple $silver;
+$team-opacity-list: 0.4 0.4 0.4 0.5 0.4 0.4 0.5 0.4;
+$team-color-names: "red" "green" "blue" "yellow" "pink" "orange" "purple" "silver";
+
+.content {
+  height: 100%;
+  left: 0;
+  overflow-y: scroll;
+  position: absolute;
+  width: calc(100% - 300px);
+
+  .teams {
+    .team {
+      height: 270px;
+      position: relative;
+      width: 100%;
+
+      &:hover, .active {
+        .overlay .links .link {
+          opacity: 1;
+        }
+      }
+
+      .overlay {
+        height: 100%;
+        position: absolute;
+        text-align: center;
+        transition: background 100ms ease-in;
+        vertical-align: middle;
+        width: 100%;
+
+        $linkMargin: 12px;
+        .links {
+          display: inline-block;
+          margin: 0 10px;
+          position: relative;
+
+          .link {
+            border: 1px solid white;
+            border-radius: 13px;
+            box-shadow: 1px 1px 2px fade-out(black, 0.6);
+            cursor: pointer;
+            display: inline-block;
+            height: 26px;
+            opacity: 0.4;
+            text-align: center;
+            transition: background, opacity 200ms ease;
+            width: 26px;
+
+            a {
+              cursor: pointer;
+              height: 100%;
+              line-height: 26px;
+              text-align: center;
+              width: 100%;
+
+              img {
+                cursor: pointer;
+                display: inline-block;
+                margin-top: -1px;
+                vertical-align: middle;
+              }
+            }
+
+            &.pdf a img {
+              height: 15px;
+              width: auto;
+            }
+
+            &.website a img {
+              height: auto;
+              width: 20px;
+            }
+          }
+        }
+
+        .name {
+          color: white;
+          display: inline-block;
+          font-family: "Montserrat", Helvetica, Arial, sans-serif;
+          font-size: 2em;
+          line-height: 270px;
+          text-shadow: 1px 1px 2px fade-out(black, 0.4); 
+          vertical-align: middle;
+        }
+      }
+    }
+
+    .team {
+      background-repeat: no-repeat;
+      background-size: cover;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+    }
+
+    @each $current-color in $team-color-names {
+      .#{$current-color} {
+        background-image: url('img/#{$current-color}team.png');
+
+        $i: index($team-color-names, $current-color);
+        &:hover, &.active {
+          .overlay {
+            background-color: fade-out(nth($team-colors-list, $i), nth($team-opacity-list, $i));
+          }
+        }
+
+        .overlay {
+          background-color: fade-out(nth($team-colors-list, $i), nth($team-opacity-list, $i) + 0.2);
+          .links .link:hover {
+            background-color: darken(nth($team-colors-list, $i), 20%);
+          }
+        }
+      }
+    }
+  }
+}
+
+.side-bar {
+  background: black;
+  height: calc(100% - 20px);
+  overflow: hidden;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  width: 280px;
+
+  .title {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    top: 66%;
+    transform: translateY(-66%);
+
+    h1 {
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 4.8em;
+      font-weight: 300;
+      margin-bottom: 25px;
+    }
+
+
+    h3 {
+      color: #dedede;
+      font-family: 'Lato', sans-serif;
+      font-weight: 200;
+      font-size: 2.2em;
+      line-height: 0;
+      margin-bottom: 10px;
+    }
+
+    .teams {
+      $radius: 14px;
+      $hoverRadius: 18px;
+      $margin: 6px;
+
+      > div {
+        border-radius: $radius;
+        cursor: pointer;
+        display: inline-block;
+        height: $radius;
+        margin-top: ($hoverRadius - $radius) / 2;
+        position: absolute;
+        transition: all 100ms ease;
+        width: $radius;
+
+        &:hover, &.active {
+          border-radius: 18px;
+          width: 18px;
+          height: 18px;
+          margin-left: -($hoverRadius - $radius) / 2;
+          margin-top: 0px;
+        }
+      }
+
+      @each $current-color in $team-colors-list {
+        $i: index($team-colors-list, $current-color);
+        .#{nth($team-color-names, $i)} {
+          background: $current-color;
+          left: ($i - 1) * ($hoverRadius + $margin) + 4px;
+        }
+      }
+    }
+  }
+
+  .top-title {
+    display: inline-block;
+    margin: 0 auto;
+    position: relative;
+    text-align: left;
+    top: 20px;
+    width: 230px;
+
+    h2 {
+      color: #888;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2em;
+      font-weight: 200;
+
+      img {
+        display: inline-block;
+        height: 18px;
+        width: auto;
+      }
+    }
+
+    .teams {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  $navigationHeight: 100px;
+
+  .side-bar {
+    height: $navigationHeight;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    .top-title {
+      display: inline-block;
+      float: right;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+
+      h2 {
+        font-size: 1em;
+        margin-right: 10px;
+        margin-bottom: 5px;
+        text-align: right;
+
+        img {
+          height: 15px;
+        }
+      }
+
+      .teams {
+        display: block;
+        $radius: 10px;
+        $hoverRadius: 14px;
+        $margin: 6px;
+
+        height: $hoverRadius;
+
+        > div {
+          border-radius: $radius;
+          cursor: pointer;
+          display: inline-block;
+          height: $radius;
+          margin-top: ($hoverRadius - $radius);
+          position: absolute;
+          transition: all 100ms ease;
+          width: $radius;
+
+          &:hover, &.active {
+            border-radius: 18px;
+            width: 18px;
+            height: 18px;
+            margin-right: -($hoverRadius - $radius);
+            margin-top: 0px;
+          }
+        }
+
+        @each $current-color in $team-colors-list {
+          $i: index($team-colors-list, $current-color);
+          .#{nth($team-color-names, $i)} {
+            background: $current-color;
+            right: (length($team-colors-list) - $i) * ($hoverRadius + $margin) + 10px;
+          }
+        }
+      }
+    }
+
+    .title {
+      display: inline-block;
+      float: left;
+      padding-left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      h1 {
+        font-size: 2em;
+        margin-bottom: 0;
+      }
+
+      h3 {
+        font-size: 1em;
+        font-weight: 400;
+      }
+
+      .teams {
+        display: none;
+      }
+    }
+  }
+
+  .content {
+    height: calc(100% - #{$navigationHeight});
+    position: absolute;
+    top: $navigationHeight;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+
+    .teams {
+      .team {
+        height: 160px;
+
+        .overlay {
+          .links {
+            margin-right: 5px;
+          }
+
+          .name {
+            font-size: 1.5em;
+            line-height: 160px;
+          }
+        }
+      }
+
+      @each $current-color in $team-color-names {
+        .#{$current-color} {
+          background-image: url('img/#{$current-color}team-mobile.png');
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-device-width: 768px) {
+  $navigationHeight: 100px;
+
+  .side-bar {
+    height: $navigationHeight;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    .top-title {
+      display: inline-block;
+      float: right;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+
+      h2 {
+        font-size: 1em;
+        margin-right: 10px;
+        margin-bottom: 5px;
+        text-align: right;
+
+        img {
+          height: 15px;
+        }
+      }
+
+      .teams {
+        display: block;
+        $radius: 10px;
+        $hoverRadius: 14px;
+        $margin: 6px;
+
+        height: $hoverRadius;
+
+        > div {
+          border-radius: $radius;
+          cursor: pointer;
+          display: inline-block;
+          height: $radius;
+          margin-top: ($hoverRadius - $radius);
+          position: absolute;
+          transition: all 100ms ease;
+          width: $radius;
+
+          &:hover, &.active {
+            border-radius: 18px;
+            width: 18px;
+            height: 18px;
+            margin-right: -($hoverRadius - $radius);
+            margin-top: 0px;
+          }
+        }
+
+        @each $current-color in $team-colors-list {
+          $i: index($team-colors-list, $current-color);
+          .#{nth($team-color-names, $i)} {
+            background: $current-color;
+            right: (length($team-colors-list) - $i) * ($hoverRadius + $margin) + 10px;
+          }
+        }
+      }
+    }
+
+    .title {
+      display: inline-block;
+      float: left;
+      padding-left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      h1 {
+        font-size: 2em;
+        margin-bottom: 0;
+      }
+
+      h3 {
+        font-size: 1em;
+        font-weight: 400;
+      }
+
+      .teams {
+        display: none;
+      }
+    }
+  }
+
+  .content {
+    height: calc(100% - #{$navigationHeight});
+    position: absolute;
+    top: $navigationHeight;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+
+    .teams {
+      .team {
+        height: 160px;
+
+        .overlay {
+          .links {
+            margin-right: 5px;
+          }
+
+          .name {
+            font-size: 1.5em;
+            line-height: 160px;
+          }
+        }
+      }
+
+      @each $current-color in $team-color-names {
+        .#{$current-color} {
+          background-image: url('img/#{$current-color}team-mobile.png');
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-device-width: 568px){
+  .side-bar {
+    .title {
+      top: inherit;
+      transform: inherit;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "2009teams",
+  "version": "0.0.0",
+  "authors": [
+    "Stephanie Yu <styu314@gmail.com>"
+  ],
+  "description": "2015 2.009 Product Teams Site",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "jquery.scrollTo": "~2.1.2"
+  }
+}
